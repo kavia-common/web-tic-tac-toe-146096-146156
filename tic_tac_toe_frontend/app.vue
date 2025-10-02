@@ -58,22 +58,26 @@
                 v-for="(cell, index) in board"
                 :key="index"
                 role="gridcell"
-                :aria-label="cell ? 'Cell ' + (index + 1) + ' ' + cell : 'Cell ' + (index + 1) + ' empty'"
+                :aria-label="cell ? ('Cell ' + (index + 1) + ' ' + (cell === 'X' ? 'Knight' : 'Queen')) : ('Cell ' + (index + 1) + ' empty')"
                 :disabled="!!cell || !!winner"
                 @click="handleMove(index)"
                 class="w-[22vw] h-[22vw] sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 aspect-square rounded-xl bg-white border border-black/5 shadow hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/40 disabled:cursor-not-allowed relative overflow-hidden"
               >
-                <span
-                  v-if="cell === 'X'"
-                  class="text-[8vw] sm:text-5xl md:text-6xl font-extrabold text-[var(--primary)] drop-shadow-[0_6px_16px_rgba(37,99,235,0.25)]"
-                >
-                  X
+                <!-- X as Knight (Horse) -->
+                <span v-if="cell === 'X'" class="piece" :style="{ color: 'var(--primary)' }" aria-hidden="true" style="filter: drop-shadow(0 6px 16px rgba(37,99,235,0.25));">
+                  <svg class="piece-svg" viewBox="0 0 24 24" fill="currentColor" role="img" focusable="false">
+                    <!-- Simple, bold knight icon path -->
+                    <path d="M7 20h10v-2h-1v-3.5c0-.9.5-1.7 1.3-2.1l1.5-.8c.2-.1.2-.4.1-.6l-1.2-1.7c-.2-.3-.6-.4-.9-.2l-1 .6c-.2.1-.5 0-.6-.2l-.8-1.4c-.2-.4-.6-.7-1-.8L12 5H9.8C8.3 5 7 6.2 7 7.8V9l1.5.8c.3.2.4.6.2.9L7 13v5h0zM9 11.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/>
+                  </svg>
+                  <span class="sr-only">Knight</span>
                 </span>
-                <span
-                  v-else-if="cell === 'O'"
-                  class="text-[8vw] sm:text-5xl md:text-6xl font-extrabold text-[var(--secondary)] drop-shadow-[0_6px_16px_rgba(245,158,11,0.25)]"
-                >
-                  O
+                <!-- O as Queen -->
+                <span v-else-if="cell === 'O'" class="piece" :style="{ color: 'var(--secondary)' }" aria-hidden="true" style="filter: drop-shadow(0 6px 16px rgba(245,158,11,0.25));">
+                  <svg class="piece-svg" viewBox="0 0 24 24" fill="currentColor" role="img" focusable="false">
+                    <!-- Simple, bold queen icon path -->
+                    <path d="M12 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm6 4a2 2 0 1 1-1.732 3H7.732A2 2 0 1 1 6 7l1.7 2.55c.19.28.51.45.85.45h6.9c.34 0 .66-.17.85-.45L18 7zM7 12l1.2 1.6c.19.26.49.4.8.4h5.9c.31 0 .61-.14.8-.4L17 12l1 6H6l1-6zm-1 8h12v1H6v-1z"/>
+                  </svg>
+                  <span class="sr-only">Queen</span>
                 </span>
 
                 <div
@@ -486,6 +490,53 @@ html, body, #__nuxt {
 .text-\[8vw\] { font-size: 8vw; }
 .sm\:text-5xl { font-size: 3rem; }
 .md\:text-6xl { font-size: 3.75rem; }
+
+/* Accessible screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 1px, 1px);
+  border: 0;
+  white-space: nowrap;
+}
+
+/* Chess piece icon sizing and effects */
+.piece {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  filter: drop-shadow(0 6px 16px color-mix(in oklab, var(--primary) 25%, transparent));
+}
+
+.piece-svg {
+  width: 8vw;
+  height: 8vw;
+  max-width: 3.2rem;  /* roughly text-5xl */
+  max-height: 3.2rem;
+}
+
+@media (min-width: 640px) { /* sm */
+  .piece-svg {
+    width: 3rem;   /* text-5xl equivalent */
+    height: 3rem;
+  }
+}
+@media (min-width: 768px) { /* md */
+  .piece-svg {
+    width: 3.75rem;  /* text-6xl equivalent */
+    height: 3.75rem;
+  }
+}
+
+/* Subtle highlight color mix for secondary piece drop shadow */
+:root {
+  --secondary-shadow: rgba(245,158,11,0.25);
+}
 
 /* Buttons */
 .btn-primary,
