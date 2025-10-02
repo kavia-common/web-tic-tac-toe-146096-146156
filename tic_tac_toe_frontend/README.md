@@ -1,75 +1,53 @@
-# Nuxt Minimal Starter
+# Tic Tac Toe • Nuxt 3 (Ocean Professional)
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern, responsive Tic Tac Toe game built with Nuxt 3. Features a centered board, minimal UI, smooth transitions, and an Ocean Professional theme (blue primary, amber secondary).
 
-## Setup
+## Features
+- Classic 3x3 Tic Tac Toe gameplay
+- Scoreboard (X wins, O wins, draws)
+- Undo last move
+- Reset board and swap who starts (before game begins)
+- Light/Dark theme toggle
+- Accessible controls and ARIA roles
+- Responsive layout with smooth transitions
 
-Make sure to install dependencies:
+## Getting Started
 
+Install dependencies:
 ```bash
 # npm
 npm install
-
 # pnpm
 pnpm install
-
 # yarn
 yarn install
-
 # bun
 bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
+Run in development:
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
+Open http://localhost:3000
 
-## Production
-
-Build the application for production:
-
+Build for production:
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Tech Stack
+- Nuxt 3 + Vue 3
+- TypeScript in Single File Components
+- CSS variables for theming (no external CSS frameworks)
+
+## Project Structure
+- `app.vue`: Entire UI and game logic implemented here for simplicity.
+- `nuxt.config.ts`: App metadata and dev server configuration.
+
+## Accessibility
+- Board uses grid and gridcell roles
+- Buttons include aria-labels and keyboard focus states
+
+Enjoy the game!
